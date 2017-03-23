@@ -1,7 +1,7 @@
 /**
  *  MyQ Garage Door Opener NoSensor
  *
- *  Copyright 2016 Brian Beaird
+ *  Copyright 2017 Brian Beaird
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License. You may obtain a copy of the License at:
@@ -12,7 +12,7 @@
  *  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
  *  for the specific language governing permissions and limitations under the License.
  *
- *  Last Updated : 12/12/2016
+ *  Last Updated : 3/21/2017
  *
  */
 metadata {
@@ -25,11 +25,12 @@ metadata {
 
 	tiles {
 		
-		multiAttributeTile(name:"door", type: "lighting", width: 6, height: 4, canChangeIcon: true) {
+		multiAttributeTile(name:"door", type: "lighting", width: 6, height: 4, canChangeIcon: false) {
 			tileAttribute ("device.door", key: "PRIMARY_CONTROL") {
 				attributeState "unknown", label:'MyQ Door (No sensor)', icon:"st.doors.garage.garage-closed",    backgroundColor:"#6495ED"
 				attributeState "moving",  label:'${name}', action:"door control.open",   icon:"st.doors.garage.garage-closed",  backgroundColor:"#4169E1", nextState: "opening"
 				attributeState "open",    label:'${name}', action:"door control.close",  icon:"st.doors.garage.garage-open",    backgroundColor:"#ffa81e", nextState: "waiting"
+                attributeState "closed",    label:'${name}', action:"door control.open",  icon:"st.doors.garage.garage-closed",    backgroundColor:"#ffa81e", nextState: "opening"
 				attributeState "opening", label:'${name}', 								 icon:"st.doors.garage.garage-opening", backgroundColor:"#cec236"
 				attributeState "closing", label:'${name}', 								 icon:"st.doors.garage.garage-closing", backgroundColor:"#cec236"
 				attributeState "waiting", label:'${name}', 								 icon:"st.doors.garage.garage-closing", backgroundColor:"#cec236", nextState: "closing"
@@ -77,4 +78,8 @@ def resetToUnknown(){
 
 def log(msg){
 	log.debug msg
+}
+
+def showVersion(){
+	return "1.0.0"
 }
